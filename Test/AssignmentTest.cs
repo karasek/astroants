@@ -26,9 +26,11 @@ namespace Test
         [Fact]
         public void CellIsParsedCorrectly()
         {
-            var cell = Cell.ParseFromAssignment("2-UL");
-            Assert.Equal(2, cell.Price);
-            Assert.Equal("UL", cell.Directions);
+            var cell = Cell.ParseFromAssignment("2-UL", 3);
+            Assert.Equal(2, cell.Cost);
+            Assert.Equal(2, cell.Directions.Length);
+            Assert.Equal(-3, cell.Directions[0]);
+            Assert.Equal(-1, cell.Directions[1]);
         }
     }
 }
