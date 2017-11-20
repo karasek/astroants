@@ -17,9 +17,9 @@ namespace ants
         }
         FastPriorityQueue<PartialSolutionNode> _partialSolutions;
 
-        public string FindPath(Assignment assignment)
+        public string FindPath(Assignment assignment, bool checkTime = true)
         {
-            Initialize(assignment);
+            Initialize(assignment, checkTime);
 
             while (_partialSolutions.Count > 0)
             {
@@ -64,7 +64,7 @@ namespace ants
             return new string(arr);
         }
 
-        void Initialize(Assignment assignment)
+        void Initialize(Assignment assignment, bool checkTime)
         {
             var areas = assignment.Map.Areas;
             _size = areas.Length;
@@ -75,9 +75,11 @@ namespace ants
             _goalColumn = assignment.Sugar.X;
             _goalRow = assignment.Sugar.Y;
             _partialSolutions = new FastPriorityQueue<PartialSolutionNode>(_size);
-            _deadLine = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
-                .AddMilliseconds(assignment.StartedTimestamp)
-                .AddMinutes(1);
+            _deadLine = checkTime
+                ? new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                    .AddMilliseconds(assignment.StartedTimestamp)
+                    .AddMinutes(1)
+                : DateTime.MaxValue;
 
             for (var i = 0; i < _size; i++)
             {

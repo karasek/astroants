@@ -5,3 +5,6 @@ obj
 *.suo
 *.bak
 *.sln.cache
+/.vs/ants/v15/sqlite3
+/dotnet170919.vspx
+/dotnet.psess
